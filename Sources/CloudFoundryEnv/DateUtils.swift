@@ -27,7 +27,7 @@ public struct DateUtils {
     #if os(Linux)
       let timeZone = TimeZone(name: "UTC")
     #else
-      let timeZone = NSTimeZone(name: "UTC") as! TimeZone
+      let timeZone = TimeZone(abbreviation: "UTC")
     #endif
     dateFormatter.timeZone = timeZone
   }

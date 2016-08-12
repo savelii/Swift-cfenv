@@ -26,12 +26,12 @@ public struct JSONUtils {
   * Converts the speficied string to a JSON object.
   */
   public static func convertStringToJSON(text: String?) -> JSON? {
-    let data = text?.data(using: String.Encoding.utf8)
-    guard let nsData = data else {
+    let dataFromString = text?.data(using: String.Encoding.utf8)
+    guard let data = dataFromString else {
       print("Could not generate JSON object from string: \(text)")
       return nil
     }
-    let json = JSON(data: nsData)
+    let json = JSON(data: data)
     return json
   }
 
