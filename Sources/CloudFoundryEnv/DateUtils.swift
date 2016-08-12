@@ -16,15 +16,28 @@
 
 import Foundation
 
+#if os(Linux)
+  public typealias DateFormatter = NSDateFormatter
+  public typealias Date = NSDate
+#endif
+
 public struct DateUtils {
 
-  let dateFormatter: NSDateFormatter
+  let dateFormatter: DateFormatter
 
   public init() {
-    dateFormatter = NSDateFormatter()
+    #if os(Linux)  
+      dateFormatter = NSDateFormatter()
+    #else
+      dateFormatter = DateFormatter()
+    #endif
     // Example: 2016-03-04 02:43:07 +0000
     dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss ZZZ"
-    let timeZone = NSTimeZone(name: "UTC")
+    #if os(Linux)
+      let timeZone = NSTimeZone(name: "UTC")
+    #else  
+      let timeZone = TimeZone(name: "UTC")
+    #endif
     dateFormatter.timeZone = timeZone
   }
 
@@ -37,7 +50,7 @@ public struct DateUtils {
       return nil
     }
 
-    let nsDate: NSDate?
+    let nsDate: Date?
     #if os(Linux)
       nsDate = dateFormatter.dateFromString(dateStr)
     #else
@@ -55,7 +68,11 @@ public struct DateUtils {
     guard let nsDateObj = nsDate else {
       return nil
     }
-    let dateString: String? = dateFormatter.string(from: nsDateObj)
+    #if os(Linux)
+      let dateString: String? = dateFormatter.string(from: nsDateObj as NSDate)
+    #else
+      let dateString: String? = dateFormatter.string(from: nsDateObj as Date)
+    #endif
     return dateString
   }
 
