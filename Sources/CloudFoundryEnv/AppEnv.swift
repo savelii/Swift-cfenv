@@ -37,7 +37,11 @@ public struct AppEnv {
   */
   public init(options: JSON) throws {
     // NSProcessInfo.processInfo().environment returns [String : String]
-    let environmentVars = ProcessInfo.processInfo.environment
+    #if os(Linux)
+        let environmentVars = ProcessInfo.processInfo().environment
+    #else
+        let environmentVars = ProcessInfo.processInfo.environment
+    #endif
     let vcapApplication = environmentVars["VCAP_APPLICATION"]
     isLocal = (vcapApplication == nil)
 
@@ -139,7 +143,7 @@ public struct AppEnv {
 
     do {
       #if os(Linux)
-        let regex = try RegularExpression(pattern: spec, options: RegularExpressionOptions.caseInsensitive)
+        let regex = try RegularExpression(pattern: spec, options: NSRegularExpressionOptions.caseInsensitive)
       #else
         let regex = try NSRegularExpression(pattern: spec, options: NSRegularExpression.Options.caseInsensitive)
       #endif
@@ -204,7 +208,7 @@ public struct AppEnv {
       parsedURL.query = query
     }
     if let queryItems = substitutions["queryItems"].array {
-      var urlQueryItems: [URLQueryItem] = []
+      var urlQueryItems: [URLQueryItem]? = []
       for queryItem in queryItems {
         if let name = queryItem["name"].string {
           #if os(Linux)
@@ -212,10 +216,10 @@ public struct AppEnv {
           #else
             let urlQueryItem = URLQueryItem(name: name, value: queryItem["value"].string)
           #endif
-          urlQueryItems.append(urlQueryItem)
+          urlQueryItems?.append(urlQueryItem)
         }
       }
-      if urlQueryItems.count > 0 {
+      if let count = urlQueryItems?.count, count > 0 {
         parsedURL.queryItems = urlQueryItems
       }
     }
