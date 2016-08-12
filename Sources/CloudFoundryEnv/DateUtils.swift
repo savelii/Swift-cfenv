@@ -17,7 +17,6 @@
 import Foundation
 
 #if os(Linux)
-  public typealias DateFormatter = NSDateFormatter
   public typealias Date = NSDate
 #endif
 
@@ -26,11 +25,7 @@ public struct DateUtils {
   let dateFormatter: DateFormatter
 
   public init() {
-    #if os(Linux)  
-      dateFormatter = NSDateFormatter()
-    #else
-      dateFormatter = DateFormatter()
-    #endif
+    dateFormatter = DateFormatter()
     // Example: 2016-03-04 02:43:07 +0000
     dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss ZZZ"
     #if os(Linux)

@@ -18,8 +18,6 @@ import Foundation
 import SwiftyJSON
 
 #if os(Linux)
-  public typealias ProcessInfo = NSProcessInfo
-  public typealias TimeInterval = NSTimeInterval
   public typealias URLQueryItem = NSURLQueryItem
 #endif
 
@@ -141,7 +139,7 @@ public struct AppEnv {
 
     do {
       #if os(Linux)
-        let regex = try NSRegularExpression(pattern: spec, options: NSRegularExpressionOptions.caseInsensitive)
+        let regex = try RegularExpression(pattern: spec, options: RegularExpressionOptions.caseInsensitive)
       #else
         let regex = try NSRegularExpression(pattern: spec, options: NSRegularExpression.Options.caseInsensitive)
       #endif
