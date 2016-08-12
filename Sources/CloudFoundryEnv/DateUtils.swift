@@ -36,25 +36,25 @@ public struct DateUtils {
   * Converts to a NSDate object a string that comforms to the following
   * format yyyy-MM-dd HH:mm:ss ZZZ.
   */
-  public func convertStringToNSDate(dateString: String?) -> NSDate? {
+  public func convertStringToDate(dateString: String?) -> Date? {
     guard let dateStr = dateString else {
       return nil
     }
 
-    let nsDate: Date? = dateFormatter.date(from: dateStr)
+    let date = dateFormatter.date(from: dateStr)
 
-    return nsDate
+    return date
   }
 
   /**
   * Converts a NSDate object to a string that follows the following format:
   * yyyy-MM-dd HH:mm:ss ZZZ.
   */
-  public func convertNSDateToString(nsDate: NSDate?) -> String? {
-    guard let nsDateObj = nsDate else {
+  public func convertDateToString(date: Date?) -> String? {
+    guard let dateObj = date else {
       return nil
     }
-    let dateString: String? = dateFormatter.string(from: nsDateObj as Date)
+    let dateString: String? = dateFormatter.string(from: dateObj)
     return dateString
   }
 

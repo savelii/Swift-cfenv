@@ -89,7 +89,7 @@ public struct AppEnv {
       let instanceId = app["instance_id"].string,
       let instanceIndex = app["instance_index"].int,
       let port = app["port"].int,
-      let startedAt: NSDate = dateUtils.convertStringToNSDate(dateString: app["started_at"].string),
+      let startedAt = dateUtils.convertStringToDate(dateString: app["started_at"].string),
       let spaceId = app["space_id"].string else {
         return nil
       }
@@ -204,18 +204,14 @@ public struct AppEnv {
       parsedURL.query = query
     }
     if let queryItems = substitutions["queryItems"].array {
-      var urlQueryItems: [URLQueryItem]? = []
+      var urlQueryItems: [URLQueryItem] = []
       for queryItem in queryItems {
         if let name = queryItem["name"].string {
-          #if os(Linux)
-            let urlQueryItem = NSURLQueryItem(name: name, value: queryItem["value"].string)
-          #else
-            let urlQueryItem = URLQueryItem(name: name, value: queryItem["value"].string)
-          #endif
-          urlQueryItems?.append(urlQueryItem)
+          let urlQueryItem = URLQueryItem(name: name, value: queryItem["value"].string)
+          urlQueryItems.append(urlQueryItem)
         }
       }
-      if let count = urlQueryItems?.count, count > 0 {
+      if urlQueryItems.count > 0 {
         parsedURL.queryItems = urlQueryItems
       }
     }

@@ -83,7 +83,7 @@ class MainTests : XCTestCase {
         let startedAt: NSDate? = app.startedAt
         XCTAssertNotNil(startedAt)
         let dateUtils = DateUtils()
-        let startedAtStr = dateUtils.convertNSDateToString(nsDate: startedAt)
+        let startedAtStr = dateUtils.convertDateToString(date: startedAt)
         XCTAssertEqual(startedAtStr, "2016-03-04 02:43:07 +0000", "Application startedAt date should match.")
         XCTAssertNotNil(app.startedAtTs, "Application startedAt ts should not be nil.")
         XCTAssertEqual(app.startedAtTs, 1457059387, "Application startedAt ts should match.")
