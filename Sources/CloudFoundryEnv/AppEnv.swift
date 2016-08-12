@@ -143,7 +143,7 @@ public struct AppEnv {
 
     do {
       #if os(Linux)
-        let regex = try RegularExpression(pattern: spec, options: NSRegularExpressionOptions.caseInsensitive)
+        let regex = try RegularExpression(pattern: spec, options: RegularExpression.Options.caseInsensitive)
       #else
         let regex = try NSRegularExpression(pattern: spec, options: NSRegularExpression.Options.caseInsensitive)
       #endif
