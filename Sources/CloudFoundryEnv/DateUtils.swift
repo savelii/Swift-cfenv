@@ -16,10 +16,6 @@
 
 import Foundation
 
-#if os(Linux)
-  public typealias Date = NSDate
-#endif
-
 public struct DateUtils {
 
   let dateFormatter: DateFormatter
