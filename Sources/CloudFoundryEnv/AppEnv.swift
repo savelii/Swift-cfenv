@@ -17,10 +17,6 @@
 import Foundation
 import SwiftyJSON
 
-#if os(Linux)
-  public typealias URLQueryItem = NSURLQueryItem
-#endif
-
 public struct AppEnv {
 
   public let isLocal: Bool
