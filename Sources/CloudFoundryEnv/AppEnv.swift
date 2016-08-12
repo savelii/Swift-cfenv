@@ -39,7 +39,7 @@ public struct AppEnv {
   */
   public init(options: JSON) throws {
     // NSProcessInfo.processInfo().environment returns [String : String]
-    let environmentVars = ProcessInfo.processInfo().environment
+    let environmentVars = ProcessInfo.processInfo.environment
     let vcapApplication = environmentVars["VCAP_APPLICATION"]
     isLocal = (vcapApplication == nil)
 
@@ -143,7 +143,7 @@ public struct AppEnv {
       #if os(Linux)
         let regex = try NSRegularExpression(pattern: spec, options: NSRegularExpressionOptions.caseInsensitive)
       #else
-        let regex = try RegularExpression(pattern: spec, options: RegularExpression.Options.caseInsensitive)
+        let regex = try NSRegularExpression(pattern: spec, options: NSRegularExpression.Options.caseInsensitive)
       #endif
       for (name, serv) in services {
         let numberOfMatches = regex.numberOfMatches(in: name, options: [], range: NSMakeRange(0, name.characters.count))

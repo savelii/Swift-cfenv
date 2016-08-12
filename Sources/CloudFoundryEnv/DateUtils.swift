@@ -35,10 +35,10 @@ public struct DateUtils {
     dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss ZZZ"
     #if os(Linux)
       let timeZone = NSTimeZone(name: "UTC")
-    #else  
-      let timeZone = TimeZone(name: "UTC")
+    #else
+      let timeZone = NSTimeZone(name: "UTC")
     #endif
-    dateFormatter.timeZone = timeZone
+    dateFormatter.timeZone = timeZone as! TimeZone
   }
 
   /**
